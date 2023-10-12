@@ -34,7 +34,14 @@ async function handleContactSubmit() {
             fbc: fbc,
             button_text: 'Submit'
         });
+
+        if (window.location.search.includes('utm_source=linkedin')) {
+            window.lintrk('track', { conversion_id: 15896065 });
+        }
     }
+
+    
+
 }
 
 document.addEventListener('DOMContentLoaded', function() {

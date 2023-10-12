@@ -20,6 +20,10 @@ async function handleHomeCTASubmit() {
             fbc: fbc,
             button_text: 'See My Leads'
         });
+
+        if (window.location.search.includes('utm_source=linkedin')) {
+            window.lintrk('track', { conversion_id: 15896073 });
+        }
     }
 }
 

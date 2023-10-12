@@ -53,7 +53,9 @@ async function handleSignupSubmit() {
         })
     })
 
-    window.lintrk('track', { conversion_id: 14427316 });
+    if (window.location.search.includes('utm_source=linkedin')) {
+        window.lintrk('track', { conversion_id: 14427316 });
+    }
         
     }
 }
