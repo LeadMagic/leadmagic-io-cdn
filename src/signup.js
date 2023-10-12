@@ -42,9 +42,8 @@ async function handleSignupSubmit() {
             button_text: 'Signup'
     });
         
-    await fetch('https://eou7fgkrdaqr3q1.m.pipedream.net',
-        {
-            method: 'POST',
+    await fetch('https://eou7fgkrdaqr3q1.m.pipedream.net', {
+        method: 'POST',
         headers: {
             'Content-type': 'application/json'
         },
@@ -52,8 +51,9 @@ async function handleSignupSubmit() {
             email: email,
             website_url: websiteUrl
         })
-        }
-    )
+    })
+
+    window.lintrk('track', { conversion_id: 14427316 });
         
     }
 }
