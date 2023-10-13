@@ -23,7 +23,8 @@ async function handleContactSubmit() {
 }
 
     if (firstname && lastname && email && natureOfRequest) {
-        analytics.track('Submitted Contact Form', { 
+        analytics.track('Submitted Form', { 
+            form_type: 'contact',
             firstname: firstname,
             lastname: lastname,
             email: email,

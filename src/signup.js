@@ -28,7 +28,8 @@ async function handleSignupSubmit() {
 
     // Segment track
     if (firstname && lastname && email && websiteUrl && phone && privacyAgreement) {
-        analytics.track('Submitted Signup Form', { 
+        analytics.track('Submitted Form', { 
+            form_type: 'signup',
             firstname: firstname,
             lastname: lastname,
             email: email,
@@ -43,24 +44,24 @@ async function handleSignupSubmit() {
             fbp: fbp,
             fbc: fbc,
             button_text: buttonElText
-    });
-        
-    await fetch('https://eou7fgkrdaqr3q1.m.pipedream.net', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: email,
-            website_url: websiteUrl
+        });
+            
+        await fetch('https://eou7fgkrdaqr3q1.m.pipedream.net', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                website_url: websiteUrl
+            })
         })
-    })
 
-    // Google Ads conversion
-    window.gtag('event', 'conversion', {'send_to': 'AW-618863666/qSE4COri9esYELK4jKcC'});
+        // Google Ads conversion
+        window.gtag('event', 'conversion', {'send_to': 'AW-618863666/qSE4COri9esYELK4jKcC'});
 
-    // LinkedIn Ads conversion
-    window.lintrk('track', { conversion_id: 14427316 });
+        // LinkedIn Ads conversion
+        window.lintrk('track', { conversion_id: 14427316 });
         
     }
 }

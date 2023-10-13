@@ -14,7 +14,8 @@ async function handleHomeCTASubmit() {
             email: email,
         });
         
-        analytics.track('Submitted Home CTA Form', { 
+        analytics.track('Submitted Form', { 
+            form_type: 'home_cta',
             email: email,
             email_hash: email_hash,
             hubspotutk: hubspotUtk,
