@@ -26,6 +26,7 @@ async function handleSignupSubmit() {
         })
     }
 
+    // Segment track
     if (firstname && lastname && email && websiteUrl && phone && privacyAgreement) {
         analytics.track('Submitted Signup Form', { 
             firstname: firstname,
@@ -55,9 +56,11 @@ async function handleSignupSubmit() {
         })
     })
 
-    if (window.location.search.includes('utm_source=linkedin')) {
-        window.lintrk('track', { conversion_id: 14427316 });
-    }
+    // Google Ads conversion
+    window.gtag('event', 'conversion', {'send_to': 'AW-618863666/qSE4COri9esYELK4jKcC'});
+
+    // LinkedIn Ads conversion
+    window.lintrk('track', { conversion_id: 14427316 });
         
     }
 }

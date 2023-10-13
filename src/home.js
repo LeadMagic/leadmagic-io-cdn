@@ -23,9 +23,11 @@ async function handleHomeCTASubmit() {
             button_text: homeCtaButtonElText
         });
 
-        if (window.location.search.includes('utm_source=linkedin')) {
-            window.lintrk('track', { conversion_id: 15896073 });
-        }
+        // Google Ads conversion
+        window.gtag('event', 'conversion', {'send_to': 'AW-618863666/W55HCJDW7esYELK4jKcC'});
+
+        // LinkedIn Ads conversion
+        window.lintrk('track', { conversion_id: 15896073 });
     }
 }
 

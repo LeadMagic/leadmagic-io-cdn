@@ -37,9 +37,11 @@ async function handleContactSubmit() {
             button_text: contactButtonElText
         });
 
-        if (window.location.search.includes('utm_source=linkedin')) {
-            window.lintrk('track', { conversion_id: 15896065 });
-        }
+        // Google Ads conversion
+        window.gtag('event', 'conversion', {'send_to': 'AW-618863666/PZliCM3x-esYELK4jKcC'});
+
+        // LinkedIn Ads conversion
+        window.lintrk('track', { conversion_id: 15896065 });
     }
 
     
