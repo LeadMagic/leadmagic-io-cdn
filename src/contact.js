@@ -12,6 +12,8 @@ async function handleContactSubmit() {
     const lastname_hash = await sha256(lastname);
     const email_hash = await sha256(email);
 
+    const contactButtonElText = document.getElementById('contact-button').textContent;
+
     if (email) {
         analytics.identify(anonymousId, {
         firstname: firstname,
@@ -32,7 +34,7 @@ async function handleContactSubmit() {
             hubspotutk: hubspotUtk,
             fbp: fbp,
             fbc: fbc,
-            button_text: 'Submit'
+            button_text: contactButtonElText
         });
 
         if (window.location.search.includes('utm_source=linkedin')) {

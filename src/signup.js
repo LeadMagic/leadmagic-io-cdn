@@ -9,6 +9,8 @@ async function handleSignupSubmit() {
     const hubspotUtk = getCookieValue('hubspotutk');
     const fbp = getCookieValue('_fbp');
     const fbc = getCookieValue('_fbc');
+
+    const buttonElText = document.getElementById('signup-button').textContent;
     
     const firstname_hash = await sha256(firstname);
     const lastname_hash = await sha256(lastname);
@@ -39,7 +41,7 @@ async function handleSignupSubmit() {
             hubspotutk: hubspotUtk,
             fbp: fbp,
             fbc: fbc,
-            button_text: 'Signup'
+            button_text: buttonElText
     });
         
     await fetch('https://eou7fgkrdaqr3q1.m.pipedream.net', {

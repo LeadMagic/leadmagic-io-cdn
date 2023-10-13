@@ -7,6 +7,8 @@ async function handleHomeCTASubmit() {
     
     const email_hash = await sha256(email);
 
+    const homeCtaButtonElText = document.getElementById('home-cta-button').textContent;
+
     if (email) {
         analytics.identify(anonymousId, {
             email: email,
@@ -18,7 +20,7 @@ async function handleHomeCTASubmit() {
             hubspotutk: hubspotUtk,
             fbp: fbp,
             fbc: fbc,
-            button_text: 'See My Leads'
+            button_text: homeCtaButtonElText
         });
 
         if (window.location.search.includes('utm_source=linkedin')) {
