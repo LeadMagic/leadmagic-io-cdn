@@ -10,7 +10,7 @@ async function handleSignupSubmit() {
     const fbp = getCookieValue('_fbp');
     const fbc = getCookieValue('_fbc');
 
-    const buttonElText = document.getElementById('signup-button').textContent;
+    const buttonElText = document.getElementById('signup-button').value;
     
     const firstname_hash = await sha256(firstname);
     const lastname_hash = await sha256(lastname);

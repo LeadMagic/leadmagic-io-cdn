@@ -7,7 +7,7 @@ async function handleHomeCTASubmit() {
     
     const email_hash = await sha256(email);
 
-    const homeCtaButtonElText = document.getElementById('home-cta-button').textContent;
+    const homeCtaButtonElText = document.getElementById('home-cta-button').value;
 
     if (email) {
         analytics.identify(anonymousId, {

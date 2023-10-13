@@ -12,7 +12,7 @@ async function handleContactSubmit() {
     const lastname_hash = await sha256(lastname);
     const email_hash = await sha256(email);
 
-    const contactButtonElText = document.getElementById('contact-button').textContent;
+    const contactButtonElText = document.getElementById('contact-button').value;
 
     if (email) {
         analytics.identify(anonymousId, {
