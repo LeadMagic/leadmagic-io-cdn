@@ -15,10 +15,6 @@ analytics.ready(() => {
         segment: window.analytics, // Pass window.analytics here - NOTE: `window.` is important
         capture_pageview: false, // You want this false if you are going to use segment's `analytics.page()` for pageviews
         // When the posthog library has loaded, call `analytics.page()` explicitly.
-        loaded: (instance) => { 
-            instance.onFeatureFlags(() => { // It might be worth adding that in order that your page event also contains feature flag attributes, you need to wait until the feature flags are loaded before calling load
-              window.analytics.page()
-           });
-        },      
+        loaded: () => window.analytics.page(),    
     });
 })
