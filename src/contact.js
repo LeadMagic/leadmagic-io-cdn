@@ -9,7 +9,7 @@ async function handleContactSubmit(submitButtonText) {
     const email_hash = await sha256(email);
 
     if (email) {
-        segmentIdentify({
+        await segmentIdentify({
             firstname: firstname,
             lastname: lastname,
             email: email
@@ -17,7 +17,7 @@ async function handleContactSubmit(submitButtonText) {
     }
 
     if (firstname && lastname && email && natureOfRequest) {
-        segmentTrack({
+        await segmentTrack({
             form_type: 'contact',
             firstname: firstname,
             lastname: lastname,

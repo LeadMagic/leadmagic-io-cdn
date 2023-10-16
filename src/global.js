@@ -101,7 +101,8 @@ async function segmentIdentify(formData) {
         phone: formData?.phone
     }
 
-    if (window.analytics) {
+    if (!analytics) {
+        console.log('Segment script not loaded. Using Segment API to identify.')
         analytics.identify(anonymousId, identifyFormData);
     } else {
         await fetch('https://api.segment.io/v1/identify', {
@@ -115,7 +116,8 @@ async function segmentIdentify(formData) {
                 traits: identifyFormData,
                 context: createContextObject()
             })
-        });
+        })
+            .then(response => console.log('Segment Identify', response));
     }
 }
 
@@ -132,10 +134,11 @@ async function segmentTrack(formData) {
     formData.fbc = fbc;
 
     // If the segment script has been loaded, use the analytics object to track the form submission.
-    if (window.analytics) {
+    if (!analytics) {
+        console.log('Segment script not loaded. Using Segment API to track.')
         formData.segment_script_loaded = true;
         analytics.track('Submitted Form', formData);
-    } else { // Else, use the Segment API to track the form submission.
+    } else { // Else, use the Segment API to track the form submission. Get response and log it.
         formData.segment_script_loaded = false;
         await fetch('https://api.segment.io/v1/track', {
             method: 'POST',
@@ -149,6 +152,8 @@ async function segmentTrack(formData) {
                 properties: formData,
                 context: createContextObject()
             })
-        });
+        })
+            .then(response => console.log('Segment Track', response));
+        
     }
 }

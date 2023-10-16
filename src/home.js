@@ -8,11 +8,11 @@ async function handleHomeCTASubmit(submitButtonText) {
     const email_hash = await sha256(email);
 
     if (email) {
-        segmentIdentify({
+        await segmentIdentify({
             email: email
         });
         
-        segmentTrack({ 
+        await segmentTrack({ 
             form_type: 'home_cta',
             email: email,
             email_hash: email_hash,

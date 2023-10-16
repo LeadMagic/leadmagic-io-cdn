@@ -12,7 +12,7 @@ async function handleSignupSubmit(submitButtonText) {
     const phone_hash = await sha256(phone);
 
     if (email) {
-        segmentIdentify({
+        await segmentIdentify({
             firstname: firstname,
             lastname: lastname,
             email: email,
@@ -22,7 +22,7 @@ async function handleSignupSubmit(submitButtonText) {
 
     // Segment track
     if (firstname && lastname && email && websiteUrl && phone && privacyAgreement) {
-        segmentTrack({ 
+        await segmentTrack({ 
             form_type: 'signup',
             firstname: firstname,
             lastname: lastname,
