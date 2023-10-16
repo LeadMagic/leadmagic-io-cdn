@@ -24,21 +24,27 @@ async function sha256(text) {
 }
 
 
-// Get UTMs for this session
+// Check sessionStorage for UTMs
+const utmSourceSS = sessionStorage.getItem('utm_source');
+const utmMediumSS = sessionStorage.getItem('utm_medium');
+const utmCampaignSS = sessionStorage.getItem('utm_campaign');
+const utmContentSS = sessionStorage.getItem('utm_content');
+
+// Check URl for UTMs
 const urlParams = new URLSearchParams(window.location.search);
 const utmSource = urlParams.get('utm_source');
 const utmMedium = urlParams.get('utm_medium');
 const utmCampaign = urlParams.get('utm_campaign');
 const utmContent = urlParams.get('utm_content');
 
-// Store them in session storage
-sessionStorage.setItem('utm_source', utmSource);
-sessionStorage.setItem('utm_medium', utmMedium);
-sessionStorage.setItem('utm_campaign', utmCampaign);
-sessionStorage.setItem('utm_content', utmContent);
+// If the UTMs are not in sessionStorage, store them there
+if (!utmSourceSS) {
+    sessionStorage.setItem('utm_source', utmSource);
+    sessionStorage.setItem('utm_medium', utmMedium);
+    sessionStorage.setItem('utm_campaign', utmCampaign);
+    sessionStorage.setItem('utm_content', utmContent);
 
-// If the current URL does not have UTMs, but we have UTMs in session storage, add them to the URL
-if (!utmSource && sessionStorage.getItem('utm_source') !== 'null') {
+} else if (!utmSource) { // Else, if they are in sessionStorage, but not in the URL, add them to the URL
     const currentUrl = new URL(window.location.href);
     currentUrl.searchParams.set('utm_source', sessionStorage.getItem('utm_source'));
     currentUrl.searchParams.set('utm_medium', sessionStorage.getItem('utm_medium'));
