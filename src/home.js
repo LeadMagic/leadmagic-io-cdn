@@ -31,30 +31,29 @@ async function handleHomeCTASubmit(submitButtonText) {
 document.addEventListener('DOMContentLoaded', function() {
     const buttonElement = document.getElementById("home-cta-button");
     const buttonElErrorText = document.getElementById('home-cta-button-error');
-    let errorList = [];
+    let inputError = false;
 
     if (emailEl) {
         emailEl.addEventListener('input', function() {
-                errorList = errorList.filter(item => item.source !== 'email');
+                
             try {
                 validateEmail(emailEl.value);
+                buttonElErrorText.textContent = '';
+                inputError = false;
             } catch (error) {
-                errorList.push({'source': 'email', 'message': error.message});
+                buttonElErrorText.textContent = error.message;
+                inputError = true;
             }
         });
     }
 
     if (buttonElement) {
         buttonElement.addEventListener('click', () => function(event) {
-            if (errorList.length > 0) {
-                buttonElErrorText.textContent = 'Clear any errors before submitting.';
+            if (inputError) {
                 event.preventDefault();
             } else {
-                buttonElErrorText.textContent = '';
                 handleHomeCTASubmit(buttonElement.value)
             }
-            
         });
     }
-
 });
