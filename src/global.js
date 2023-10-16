@@ -38,13 +38,16 @@ const utmCampaign = urlParams.get('utm_campaign');
 const utmContent = urlParams.get('utm_content');
 
 // If the UTMs are not in sessionStorage, store them there
-if (!utmSourceSS) {
+if (utmSource && !utmSourceSS) {
     sessionStorage.setItem('utm_source', utmSource);
     sessionStorage.setItem('utm_medium', utmMedium);
     sessionStorage.setItem('utm_campaign', utmCampaign);
     sessionStorage.setItem('utm_content', utmContent);
 
-} else if (!utmSource) { // Else, if they are in sessionStorage, but not in the URL, add them to the URL
+}
+
+// If they are in sessionStorage, but not in the URL, add them to the URL
+if (!utmSource && utmSourceSS) {
     const currentUrl = new URL(window.location.href);
     currentUrl.searchParams.set('utm_source', sessionStorage.getItem('utm_source'));
     currentUrl.searchParams.set('utm_medium', sessionStorage.getItem('utm_medium'));
