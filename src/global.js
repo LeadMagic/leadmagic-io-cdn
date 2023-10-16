@@ -111,6 +111,7 @@ async function segmentIdentify(formData) {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
+                callType: 'identify',
                 anonymousId: anonymousId,
                 formData: identifyFormData,
                 context: createContextObject()
@@ -137,7 +138,6 @@ async function segmentTrack(formData) {
         analytics.track('Submitted Form', formData)
 
     } else { // Else, use the Segment API to track the form submission. Get response and log it.
-        console.log('segmentTrack Segment script not loaded.')
         formData.segment_script_loaded = false;
         await fetch('https://eok1gl2jpo2gqtn.m.pipedream.net', {
             method: 'POST',
@@ -145,6 +145,7 @@ async function segmentTrack(formData) {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
+                callType: 'track',
                 anonymousId: anonymousId,
                 eventName: 'Submitted Form',
                 formData: formData,

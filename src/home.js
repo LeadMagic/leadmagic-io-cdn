@@ -21,14 +21,10 @@ async function handleHomeCTASubmit(submitButtonText) {
     console.log('formData: ', formData);
 
     if (email !== '') {
-        console.log('Submit button clicked')
         await segmentIdentify({
             email: email
         })
-            .then(() => console.log('segmentIdentify called'));
-        
         await segmentTrack(formData)
-            .then(() => console.log('segmentTrack called'));
 
         // Google Ads conversion
         window.gtag('event', 'conversion', {'send_to': 'AW-618863666/W55HCJDW7esYELK4jKcC'});
@@ -42,7 +38,6 @@ async function handleHomeCTASubmit(submitButtonText) {
 document.addEventListener('DOMContentLoaded', function() {
     const buttonElement = document.getElementById("home-cta-button");
     if (buttonElement) {
-        console.log('Found submit button')
         buttonElement.addEventListener('click', () => handleHomeCTASubmit(buttonElement.value));
     }
 });

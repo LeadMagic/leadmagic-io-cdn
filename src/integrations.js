@@ -52,7 +52,7 @@ if (!analytics.initialize)
             n.parentNode.insertBefore(t, n);
             analytics._loadOptions = i
 
-            // Throw an error if the segment script doesn't load
+            // If the segment script doesn't load, set isSegmentScriptLoaded to false
             t.onerror = function() {
                 isSegmentScriptLoaded = false;
             };
