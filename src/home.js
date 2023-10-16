@@ -1,4 +1,4 @@
-async function handleHomeCTASubmit() {
+async function handleHomeCTASubmit(submitButtonText) {
     const email = document.getElementById("home-cta-email").value;
     const anonymousId = getCookieValue('ajs_anonymous_id');
     const hubspotUtk = getCookieValue('hubspotutk');
@@ -7,21 +7,19 @@ async function handleHomeCTASubmit() {
     
     const email_hash = await sha256(email);
 
-    const homeCtaButtonElText = document.getElementById('home-cta-button').value;
-
     if (email) {
-        analytics.identify(anonymousId, {
-            email: email,
+        segmentIdentify({
+            email: email
         });
         
-        analytics.track('Submitted Form', { 
+        segmentTrack({ 
             form_type: 'home_cta',
             email: email,
             email_hash: email_hash,
             hubspotutk: hubspotUtk,
             fbp: fbp,
             fbc: fbc,
-            button_text: homeCtaButtonElText
+            button_text: submitButtonText
         });
 
         // Google Ads conversion
@@ -36,6 +34,6 @@ async function handleHomeCTASubmit() {
 document.addEventListener('DOMContentLoaded', function() {
     const buttonElement = document.getElementById("home-cta-button");
     if (buttonElement) {
-        buttonElement.addEventListener('click', handleHomeCTASubmit);
+        buttonElement.addEventListener('click', handleHomeCTASubmit(buttonElement.value));
     }
 });

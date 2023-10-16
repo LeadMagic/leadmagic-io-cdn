@@ -1,16 +1,10 @@
-async function handleSignupSubmit() {
+async function handleSignupSubmit(submitButtonText) {
     const firstname = document.getElementById("first-name").value;
     const lastname = document.getElementById("last-name").value;
     const email = document.getElementById("email").value;
     const websiteUrl = document.getElementById("website-url").value;
     const phone = document.getElementById("phone").value;
     const privacyAgreement = document.getElementById("privacy-agreement").value;
-    const anonymousId = getCookieValue('ajs_anonymous_id');
-    const hubspotUtk = getCookieValue('hubspotutk');
-    const fbp = getCookieValue('_fbp');
-    const fbc = getCookieValue('_fbc');
-
-    const buttonElText = document.getElementById('signup-button').value;
     
     const firstname_hash = await sha256(firstname);
     const lastname_hash = await sha256(lastname);
@@ -18,7 +12,7 @@ async function handleSignupSubmit() {
     const phone_hash = await sha256(phone);
 
     if (email) {
-        analytics.identify(anonymousId, {
+        segmentIdentify({
             firstname: firstname,
             lastname: lastname,
             email: email,
@@ -28,7 +22,7 @@ async function handleSignupSubmit() {
 
     // Segment track
     if (firstname && lastname && email && websiteUrl && phone && privacyAgreement) {
-        analytics.track('Submitted Form', { 
+        segmentTrack({ 
             form_type: 'signup',
             firstname: firstname,
             lastname: lastname,
@@ -43,7 +37,7 @@ async function handleSignupSubmit() {
             hubspotutk: hubspotUtk,
             fbp: fbp,
             fbc: fbc,
-            button_text: buttonElText
+            button_text: submitButtonText
         });
             
         await fetch('https://eou7fgkrdaqr3q1.m.pipedream.net', {
@@ -136,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 event.preventDefault();
             } else {
                 buttonElErrorText.textContent = '';
-                handleSignupSubmit(errorList);
+                handleSignupSubmit(buttonEl.value);
             }
         })
     }
