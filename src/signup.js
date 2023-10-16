@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     if (buttonEl) {
-        buttonEl.addEventListener('click', function(event) {
+        buttonEl.addEventListener('click', () => function(event) {
             if (errorList.length > 0) {
                 buttonElErrorText.textContent = 'Clear any errors before submitting.';
                 event.preventDefault();

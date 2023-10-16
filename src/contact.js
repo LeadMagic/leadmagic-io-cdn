@@ -43,6 +43,6 @@ async function handleContactSubmit(submitButtonText) {
 document.addEventListener('DOMContentLoaded', function() {
     let buttonElement = document.getElementById("contact-button");
     if (buttonElement) {
-        buttonElement.addEventListener('click', handleContactSubmit(buttonElement.value));
+        buttonElement.addEventListener('click', () => handleContactSubmit(buttonElement.value));
     }
 });

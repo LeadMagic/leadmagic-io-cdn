@@ -20,7 +20,7 @@ async function handleHomeCTASubmit(submitButtonText) {
 
     console.log('formData: ', formData);
 
-    if (email) {
+    if (email !== '') {
         console.log('Submit button clicked')
         await segmentIdentify({
             email: email
@@ -43,6 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const buttonElement = document.getElementById("home-cta-button");
     if (buttonElement) {
         console.log('Found submit button')
-        buttonElement.addEventListener('click', handleHomeCTASubmit(buttonElement.value));
+        buttonElement.addEventListener('click', () => handleHomeCTASubmit(buttonElement.value));
     }
 });
