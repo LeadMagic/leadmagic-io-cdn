@@ -38,7 +38,7 @@ sessionStorage.setItem('utm_campaign', utmCampaign);
 sessionStorage.setItem('utm_content', utmContent);
 
 // If the current URL does not have UTMs, but we have UTMs in session storage, add them to the URL
-if (!utmSource && sessionStorage.getItem('utm_source')) {
+if (!utmSource && sessionStorage.getItem('utm_source') !== 'null') {
     const currentUrl = new URL(window.location.href);
     currentUrl.searchParams.set('utm_source', sessionStorage.getItem('utm_source'));
     currentUrl.searchParams.set('utm_medium', sessionStorage.getItem('utm_medium'));
