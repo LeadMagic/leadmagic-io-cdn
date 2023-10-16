@@ -25,15 +25,16 @@ async function handleHomeCTASubmit(submitButtonText) {
         // LinkedIn Ads conversion
         window.lintrk('track', { conversion_id: 15896073 });
 
-        // Redirect to /signup
-        window.location.href = '/signup';
+        // Get root URL, redirect to signup page
+        const rootUrl = window.location.origin;
+        window.location.href = `${rootUrl}/signup`;
     }
 }
 
 // Attach click event to the button when the document is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     const emailInputEl = document.getElementById('home-cta-email');
-    const buttonElement = document.getElementById("home-cta-button");
+    const buttonEl = document.getElementById("home-cta-button");
     const buttonElErrorText = document.getElementById('home-cta-button-error');
     let inputError = false;
 
@@ -48,15 +49,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 buttonElErrorText.textContent = error.message;
                 inputError = true;
             }
+
+            console.log('inputError: ', inputError)
         });
     }
 
-    if (buttonElement) {
-        buttonElement.addEventListener('click', () => function(event) {
+    if (buttonEl) {
+        buttonEl.addEventListener('click', () => function(event) {
             if (inputError) {
                 event.preventDefault();
             } else {
-                handleHomeCTASubmit(buttonElement.value)
+                handleHomeCTASubmit(buttonEl.value)
             }
         });
     }
