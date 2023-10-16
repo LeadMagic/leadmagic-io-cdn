@@ -57,15 +57,6 @@ async function handleSignupSubmit(submitButtonText) {
     }
 }
   
-function validateEmail(email) {
-    const freeEmailDomains = ['gmail.com','yahoo.com','hotmail.com','aol.com','mail.com','outlook.com','icloud.com','yandex.com','zoho.com','inbox.com','fastmail.com','hushmail.com','gmx.com','gmx.net','gmx.us','tutanota.com','aim.com','yahoo.co.uk','msn.com','live.com','yahoo.co.in','rediffmail.com','mail.ru','163.com','126.com','sina.com','sohu.com','qq.com', 'test.com'];
-            
-    const emailDomain = email.split('@')[1];
-    if (freeEmailDomains.includes(emailDomain)) {
-        throw new Error('Please enter a work email.')
-    }
-}
-  
 function validateWebsiteUrl(websiteUrl) {
     const httpsRegex = /^https:\/\//;
     const domainRegex = /^https:\/\/[a-z\d.-]+\.[a-z.]{2,6}.*$/i;
@@ -95,6 +86,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let errorList = [];
     
     if (emailEl) {
+        // If em in localStorage, set emailEl value to em
+        if (localStorage.getItem('em')) {
+            emailEl.value = localStorage.getItem('em');
+        }
+        
         emailEl.addEventListener('input', function() {
                 errorList = errorList.filter(item => item.source !== 'email');
             try {

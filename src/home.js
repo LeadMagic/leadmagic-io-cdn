@@ -10,7 +10,10 @@ async function handleHomeCTASubmit(submitButtonText) {
         button_text: submitButtonText
     }
 
-    if (email !== '') {
+    if (email) {
+        // store email in local storage
+        localStorage.setItem('em', email);
+
         await segmentIdentify({
             email: email
         })
@@ -27,7 +30,31 @@ async function handleHomeCTASubmit(submitButtonText) {
 // Attach click event to the button when the document is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     const buttonElement = document.getElementById("home-cta-button");
-    if (buttonElement) {
-        buttonElement.addEventListener('click', () => handleHomeCTASubmit(buttonElement.value));
+    const buttonElErrorText = document.getElementById('home-cta-button-error');
+    let errorList = [];
+
+    if (emailEl) {
+        emailEl.addEventListener('input', function() {
+                errorList = errorList.filter(item => item.source !== 'email');
+            try {
+                validateEmail(emailEl.value);
+            } catch (error) {
+                errorList.push({'source': 'email', 'message': error.message});
+            }
+        });
     }
+
+    if (buttonElement) {
+        buttonElement.addEventListener('click', () => function(event) {
+            if (errorList.length > 0) {
+                buttonElErrorText.textContent = 'Clear any errors before submitting.';
+                event.preventDefault();
+            } else {
+                buttonElErrorText.textContent = '';
+                handleHomeCTASubmit(buttonElement.value)
+            }
+            
+        });
+    }
+
 });
