@@ -29,15 +29,16 @@ async function handleHomeCTASubmit(submitButtonText) {
 
 // Attach click event to the button when the document is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    const emailInputEl = document.getElementById('home-cta-email');
     const buttonElement = document.getElementById("home-cta-button");
     const buttonElErrorText = document.getElementById('home-cta-button-error');
     let inputError = false;
 
-    if (emailEl) {
-        emailEl.addEventListener('input', function() {
+    if (emailInputEl) {
+        emailInputEl.addEventListener('input', function() {
                 
             try {
-                validateEmail(emailEl.value);
+                validateEmail(emailInputEl.value);
                 buttonElErrorText.textContent = '';
                 inputError = false;
             } catch (error) {
