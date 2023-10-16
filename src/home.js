@@ -49,8 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 buttonElErrorText.textContent = error.message;
                 inputError = true;
             }
-
-            console.log('inputError: ', inputError)
         });
     }
 
