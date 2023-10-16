@@ -20,6 +20,7 @@
 }(document, window.posthog || []);
 
 // Load Segment
+var isSegmentScriptLoaded = true; // Global variable to track Segment script loading
 var analytics = window.analytics = window.analytics || [];
 if (!analytics.initialize)
     if (analytics.invoked)
@@ -50,11 +51,17 @@ if (!analytics.initialize)
             var n = document.getElementsByTagName("script")[0];
             n.parentNode.insertBefore(t, n);
             analytics._loadOptions = i
+
+            // Throw an error if the segment script doesn't load
+            t.onerror = function() {
+                isSegmentScriptLoaded = false;
+            };
         }
         ;
         analytics._writeKey = "0t6JtdHEh6FDlVLPBVVqnYXfJXMA0A2O";
         ;analytics.SNIPPET_VERSION = "4.16.1";
-        analytics.load("0t6JtdHEh6FDlVLPBVVqnYXfJXMA0A2O");
+        analytics.load("0t6JtdHEh6FDlVLPBVVqnYXfJXMA0A2O")
+
     }
 
 

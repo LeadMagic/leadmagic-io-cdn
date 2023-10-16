@@ -101,7 +101,8 @@ async function segmentIdentify(formData) {
         phone: formData?.phone
     }
 
-    if (analytics) {
+    // check if the segment script has been loaded
+    if (isSegmentScriptLoaded) {
         console.log('segmentIdentify Segment script loaded.')
         analytics.identify(anonymousId, identifyFormData)
 
@@ -136,7 +137,7 @@ async function segmentTrack(formData) {
     formData.fbc = fbc;
 
     // If the segment script has been loaded, use the analytics object to track the form submission.
-    if (analytics) {
+    if (isSegmentScriptLoaded) {
         console.log('segmentTrack Segment script loaded.')
         formData.segment_script_loaded = true;
 
