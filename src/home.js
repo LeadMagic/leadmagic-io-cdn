@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (buttonEl) {
-        buttonEl.addEventListener('click', () => function(event) {
+        buttonEl.addEventListener('click', (event) => {
             if (inputError) {
                 event.preventDefault();
             } else {

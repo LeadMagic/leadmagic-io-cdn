@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (localStorage.getItem('em')) {
             emailEl.value = localStorage.getItem('em');
         }
-        
+
         emailEl.addEventListener('input', function() {
                 errorList = errorList.filter(item => item.source !== 'email');
             try {
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     if (buttonEl) {
-        buttonEl.addEventListener('click', () => function(event) {
+        buttonEl.addEventListener('click', () => (event) => {
             if (errorList.length > 0) {
                 buttonElErrorText.textContent = 'Clear any errors before submitting.';
                 event.preventDefault();
