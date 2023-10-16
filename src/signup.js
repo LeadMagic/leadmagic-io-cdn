@@ -34,9 +34,6 @@ async function handleSignupSubmit(submitButtonText) {
             lastname_hash: lastname_hash,
             email_hash: email_hash,
             phone_hash: phone_hash,
-            hubspotutk: hubspotUtk,
-            fbp: fbp,
-            fbc: fbc,
             button_text: submitButtonText
         });
             

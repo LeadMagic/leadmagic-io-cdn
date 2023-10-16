@@ -26,9 +26,6 @@ async function handleContactSubmit(submitButtonText) {
             lastname_hash: lastname_hash,
             email_hash: email_hash,
             nature_of_request: natureOfRequest,
-            hubspotutk: hubspotUtk,
-            fbp: fbp,
-            fbc: fbc,
             button_text: submitButtonText
         });
 

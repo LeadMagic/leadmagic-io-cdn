@@ -1,10 +1,5 @@
 async function handleHomeCTASubmit(submitButtonText) {
-    console.log('Submit button clicked')
-
     const email = document.getElementById("home-cta-email").value;
-    const hubspotUtk = getCookieValue('hubspotutk');
-    const fbp = getCookieValue('_fbp');
-    const fbc = getCookieValue('_fbc');
     
     const email_hash = await sha256(email);
 
@@ -12,13 +7,8 @@ async function handleHomeCTASubmit(submitButtonText) {
         form_type: 'home_cta',
         email: email,
         email_hash: email_hash,
-        hubspotutk: hubspotUtk,
-        fbp: fbp,
-        fbc: fbc,
         button_text: submitButtonText
     }
-
-    console.log('formData: ', formData);
 
     if (email !== '') {
         await segmentIdentify({
