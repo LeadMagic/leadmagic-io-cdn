@@ -101,10 +101,13 @@ async function segmentIdentify(formData) {
         phone: formData?.phone
     }
 
-    if (!analytics) {
-        console.log('Segment script not loaded. Using Segment API to identify.')
-        analytics.identify(anonymousId, identifyFormData);
+    if (analytics) {
+        console.log('segmentIdentify Segment script loaded.')
+        analytics.identify(anonymousId, identifyFormData)
+            .catch(err => console.log('analytics.identify error: ', err));
+            
     } else {
+        console.log('segmentIdentify Segment script not loaded.')
         await fetch('https://api.segment.io/v1/identify', {
             method: 'POST',
             headers: {
@@ -134,11 +137,15 @@ async function segmentTrack(formData) {
     formData.fbc = fbc;
 
     // If the segment script has been loaded, use the analytics object to track the form submission.
-    if (!analytics) {
-        console.log('Segment script not loaded. Using Segment API to track.')
+    if (analytics) {
+        console.log('segmentTrack Segment script loaded.')
         formData.segment_script_loaded = true;
-        analytics.track('Submitted Form', formData);
+
+        analytics.track('Submitted Form', formData)
+            .catch(err => console.log('analytics.track error: ', err));
+
     } else { // Else, use the Segment API to track the form submission. Get response and log it.
+        console.log('segmentTrack Segment script not loaded.')
         formData.segment_script_loaded = false;
         await fetch('https://api.segment.io/v1/track', {
             method: 'POST',
