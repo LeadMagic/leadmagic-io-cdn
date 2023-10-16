@@ -103,24 +103,19 @@ async function segmentIdentify(formData) {
 
     // check if the segment script has been loaded
     if (isSegmentScriptLoaded) {
-        console.log('segmentIdentify Segment script loaded.')
         analytics.identify(anonymousId, identifyFormData)
-
     } else {
-        console.log('segmentIdentify Segment script not loaded.')
-        await fetch('https://api.segment.io/v1/identify', {
+        await fetch('https://eok1gl2jpo2gqtn.m.pipedream.net', {
             method: 'POST',
             headers: {
-                'Authorization': 'Basic MHQ2SnRkSEVoNkZEbFZMUEJWVnFuWVhmSlhNQTBBMk8=',
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
                 anonymousId: anonymousId,
-                traits: identifyFormData,
+                formData: identifyFormData,
                 context: createContextObject()
             })
         })
-            .then(response => console.log('Segment Identify', response));
     }
 }
 
@@ -138,28 +133,24 @@ async function segmentTrack(formData) {
 
     // If the segment script has been loaded, use the analytics object to track the form submission.
     if (isSegmentScriptLoaded) {
-        console.log('segmentTrack Segment script loaded.')
         formData.segment_script_loaded = true;
-
         analytics.track('Submitted Form', formData)
 
     } else { // Else, use the Segment API to track the form submission. Get response and log it.
         console.log('segmentTrack Segment script not loaded.')
         formData.segment_script_loaded = false;
-        await fetch('https://api.segment.io/v1/track', {
+        await fetch('https://eok1gl2jpo2gqtn.m.pipedream.net', {
             method: 'POST',
             headers: {
-                'Authorization': 'Basic MHQ2SnRkSEVoNkZEbFZMUEJWVnFuWVhmSlhNQTBBMk8=',
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
                 anonymousId: anonymousId,
-                event: 'Submitted Form',
-                properties: formData,
+                eventName: 'Submitted Form',
+                formData: formData,
                 context: createContextObject()
             })
         })
-            .then(response => console.log('Segment Track', response));
         
     }
 }
