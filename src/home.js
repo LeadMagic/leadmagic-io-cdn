@@ -24,6 +24,9 @@ async function handleHomeCTASubmit(submitButtonText) {
 
         // LinkedIn Ads conversion
         window.lintrk('track', { conversion_id: 15896073 });
+
+        // Redirect to /signup
+        window.location.href = '/signup';
     }
 }
 
