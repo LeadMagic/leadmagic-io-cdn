@@ -104,8 +104,7 @@ async function segmentIdentify(formData) {
     if (analytics) {
         console.log('segmentIdentify Segment script loaded.')
         analytics.identify(anonymousId, identifyFormData)
-            .catch(err => console.log('analytics.identify error: ', err));
-            
+
     } else {
         console.log('segmentIdentify Segment script not loaded.')
         await fetch('https://api.segment.io/v1/identify', {
@@ -142,7 +141,6 @@ async function segmentTrack(formData) {
         formData.segment_script_loaded = true;
 
         analytics.track('Submitted Form', formData)
-            .catch(err => console.log('analytics.track error: ', err));
 
     } else { // Else, use the Segment API to track the form submission. Get response and log it.
         console.log('segmentTrack Segment script not loaded.')
