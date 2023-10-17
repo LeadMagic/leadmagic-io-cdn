@@ -47,13 +47,6 @@ async function handleSignupSubmit(submitButtonText) {
                 website_url: websiteUrl
             })
         })
-
-        // Google Ads conversion
-        window.gtag('event', 'conversion', {'send_to': 'AW-618863666/qSE4COri9esYELK4jKcC'});
-
-        // LinkedIn Ads conversion
-        window.lintrk('track', { conversion_id: 14427316 });
-        
     }
 }
   

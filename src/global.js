@@ -98,6 +98,39 @@ function createContextObject() {
     return context;
 }
 
+function fireConversionEvents(formData) {
+    const formType = formData.form_type;
+    let gtagConversionId = '';
+    let linkedinConversionId = '';
+
+    if (formType === 'contact') {
+        gtagConversionId = 'AW-618863666/PZliCM3x-esYELK4jKcC'
+        linkedinConversionId = 15896065;
+    } else if (formType === 'home_cta') {
+        gtagConversionId = 'AW-618863666/W55HCJDW7esYELK4jKcC'
+        linkedinConversionId = 15896073;
+    } else if (formType === 'signup') {
+        gtagConversionId = 'AW-618863666/qSE4COri9esYELK4jKcC'
+        linkedinConversionId = 14427316;
+    }
+
+    // Gtag user properties
+    window.gtag('set', 'user_data', {
+        'email': formData?.email,
+        'sha256_email_address': formData?.email_hash,
+        'address.first_name': formData?.firstname,
+        'address.sha256_first_name': formData?.firstname_hash,
+        'address.last_name': formData?.lastname,
+        'address.sha256_last_name': formData?.lastname_hash,
+    })
+
+    // Google Ads conversion
+    window.gtag('event', 'conversion', {'send_to': gtagConversionId});
+
+    // LinkedIn Ads conversion
+    window.lintrk('track', { conversion_id:  linkedinConversionId});
+}
+
 async function segmentIdentify(formData) {
     // Get cookies
     const anonymousId = getCookieValue('ajs_anonymous_id');
@@ -145,7 +178,7 @@ async function segmentTrack(formData) {
     if (isSegmentScriptLoaded) {
         formData.segment_script_loaded = true;
         analytics.track('Submitted Form', formData)
-
+        fireConversionEvents(formData);
     } else { // Else, use the Segment API to track the form submission. Get response and log it.
         formData.segment_script_loaded = false;
         await fetch('https://eok1gl2jpo2gqtn.m.pipedream.net', {

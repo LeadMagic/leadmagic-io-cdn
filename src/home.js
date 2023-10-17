@@ -19,12 +19,6 @@ async function handleHomeCTASubmit(submitButtonText) {
         })
         await segmentTrack(formData)
 
-        // Google Ads conversion
-        window.gtag('event', 'conversion', {'send_to': 'AW-618863666/W55HCJDW7esYELK4jKcC'});
-
-        // LinkedIn Ads conversion
-        window.lintrk('track', { conversion_id: 15896073 });
-
         // Get root URL, redirect to signup page
         const rootUrl = window.location.origin;
         window.location.href = `${rootUrl}/signup`;

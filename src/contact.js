@@ -28,12 +28,6 @@ async function handleContactSubmit(submitButtonText) {
             nature_of_request: natureOfRequest,
             button_text: submitButtonText
         });
-
-        // Google Ads conversion
-        window.gtag('event', 'conversion', {'send_to': 'AW-618863666/PZliCM3x-esYELK4jKcC'});
-
-        // LinkedIn Ads conversion
-        window.lintrk('track', { conversion_id: 15896065 });
     }
 }
 
