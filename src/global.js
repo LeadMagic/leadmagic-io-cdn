@@ -9,6 +9,7 @@ if (!sessionStorage.getItem('publicIpData')) {
 
 // Segment anon id
 var anonymousId = getCookieValue('ajs_anonymous_id');
+var sr = sessionStorage.getItem('snid_company') ? true : false;
 
 // Check sessionStorage for UTMs
 var utmSourceSS = sessionStorage.getItem('utm_source');
