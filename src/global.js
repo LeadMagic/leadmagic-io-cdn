@@ -7,6 +7,9 @@ if (!sessionStorage.getItem('publicIpData')) {
         });
 }
 
+// Segment anon id
+var anonymousId = getCookieValue('ajs_anonymous_id');
+
 // Check sessionStorage for UTMs
 var utmSourceSS = sessionStorage.getItem('utm_source');
 var utmMediumSS = sessionStorage.getItem('utm_medium');
@@ -132,9 +135,6 @@ function fireConversionEvents(formData) {
 }
 
 async function segmentIdentify(formData) {
-    // Get cookies
-    const anonymousId = getCookieValue('ajs_anonymous_id');
-
     // identifyFormData should only include email, firstname, lastname, phone, if they exist
     const identifyFormData = {
         email: formData?.email,
@@ -164,7 +164,6 @@ async function segmentIdentify(formData) {
 
 async function segmentTrack(formData) {
     // Get cookies
-    const anonymousId = getCookieValue('ajs_anonymous_id');
     const hubspotUtk = getCookieValue('hubspotutk');
     const fbp = getCookieValue('_fbp');
     const fbc = getCookieValue('_fbc');
