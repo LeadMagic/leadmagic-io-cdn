@@ -155,6 +155,7 @@ async function segmentIdentify(formData) {
             },
             body: JSON.stringify({
                 callType: 'identify',
+                userId: formData?.email,
                 anonymousId: anonymousId,
                 formData: identifyFormData,
                 context: createContextObject()
@@ -188,6 +189,7 @@ async function segmentTrack(formData) {
             },
             body: JSON.stringify({
                 callType: 'track',
+                userId: formData?.email,
                 anonymousId: anonymousId,
                 eventName: 'Submitted Form',
                 formData: formData,
