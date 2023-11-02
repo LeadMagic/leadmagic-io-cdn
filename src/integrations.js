@@ -74,6 +74,9 @@ analytics.ready(() => {
         segment: window.analytics, // Pass window.analytics here - NOTE: `window.` is important
         capture_pageview: false, // You want this false if you are going to use segment's `analytics.page()` for pageviews
         // When the posthog library has loaded, call `analytics.page()` explicitly.
-        loaded: () => window.analytics.page(),    
+        loaded: () => window.analytics.page({
+            'fbp': getCookieValue('_fbp'),
+            'fbc': getCookieValue('_fbc')
+        }),    
     });
 })
