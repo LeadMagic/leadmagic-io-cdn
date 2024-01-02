@@ -33,7 +33,7 @@ async function handleHomeCTASubmit(submitButtonText) {
         redirectToSignup();
     } catch (error) {
         console.error(error.message);
-        // Handle error (e.g., show error message to the user)
+        displayError(error.message);
     }
 }
 
@@ -53,7 +53,6 @@ function identifyUser(email) {
 
 // Track form submission for Segment and Customer.io
 function trackFormSubmission(email, formData) {
-    // Combine formData with additional properties if needed
     const eventData = {
         ...formData,
         page_visited: 'Home Page', // Additional property for page visited
@@ -70,6 +69,12 @@ function trackFormSubmission(email, formData) {
 function redirectToSignup() {
     const rootUrl = window.location.origin;
     window.location.href = `${rootUrl}/signup`;
+}
+
+// Display error message to the user
+function displayError(message) {
+    // Implement how you wish to display the error to the user
+    alert(message); // For demonstration purposes, using alert
 }
 
 // Event listener for DOMContentLoaded
@@ -110,7 +115,11 @@ function setupButtonClickListener(buttonEl, inputError) {
         buttonEl.addEventListener('click', async (event) => {
             event.preventDefault();
             if (!inputError) {
-                await handleHomeCTASubmit(buttonEl.value);
+                buttonEl.disabled = true; // Disable the button to prevent multiple submissions
+                await handleHomeCTASubmit(buttonEl.value)
+                    .catch((error) => {
+                        buttonEl.disabled = false; // Re-enable the button if there's an error
+                    });
             }
         });
     }
@@ -120,4 +129,21 @@ function setupButtonClickListener(buttonEl, inputError) {
 function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+}
+
+// Define Segment and Customer.io specific functions (placeholders)
+function segmentIdentify(properties) {
+    // Implement Segment identify call
+}
+
+function segmentTrack(eventName, properties) {
+    // Implement Segment track call
+}
+
+function customerIoIdentify(properties) {
+    // Implement Customer.io identify call
+}
+
+function customerIoTrack(eventName, properties) {
+    // Implement Customer.io track call
 }
