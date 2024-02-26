@@ -10,17 +10,17 @@
         if (!window.posthog) {
             !function(p,h,o,s,t){p['PostHogObject']=s;p[s]=p[s]||function(){
                 (p[s].q=p[s].q||[]).push(arguments)},p[s].l=1*new Date();t=h.createElement(o),
-                t.async=1;t.src='https://cdn.posthog.com/posthog.js';h.head.appendChild(t)
+                t.async=1;t.src='https://cdn.posthog.com/posthog.js';h.head.appendChild(t);
+                posthog.init(posthogApiKey, {api_host: posthogApiHost});
             }(window,document,'script','posthog');
-            posthog.init(posthogApiKey, {api_host: posthogApiHost});
         }
 
         // Initialize Segment
         if (!window.analytics) {
-            !function(e,a,t,n,g,c,o){e.AnalyticsObject=g,e[g]=e[g]||function(){
-                (e[g].q=e[g].q||[]).push(arguments)},e[g].l=1*new Date(),c=a.createElement(t),
-                o=a.getElementsByTagName(t)[0],c.async=1,c.src="https://cdn.segment.com/analytics.js/v1/"
-                + segmentWriteKey + "/analytics.min.js",o.parentNode.insertBefore(c,o)
+            !function(e,a,t,n,g,c,o){e.AnalyticsObject=g;e[g]=e[g]||function(){
+                (e[g].q=e[g].q||[]).push(arguments)},e[g].l=1*new Date();c=a.createElement(t),
+                o=a.getElementsByTagName(t)[0];c.async=1;c.src="https://cdn.segment.com/analytics.js/v1/"
+                + segmentWriteKey + "/analytics.min.js";o.parentNode.insertBefore(c,o);
             }(window,document,"script",0,"analytics");
         }
     }
@@ -72,8 +72,8 @@
         }
         return data;
     }
-    
-    // Enhanced track function for Segment and Customer.io with dynamic button text
+
+    // Enhanced identification and tracking functions
     async function enhancedIdentify(formData) {
         const emailHash = formData.email ? await sha256(formData.email) : null;
         const identifyTraits = {
@@ -112,7 +112,6 @@
         });
     }
 
-    // Enhanced track function for Segment and Customer.io with dynamic button text
     async function enhancedTrack(eventName, formData, buttonText) {
         const trackProperties = {
             ...formData,
@@ -140,6 +139,8 @@
 
     // Setup global button click listener with dynamic button text handling
     document.addEventListener('DOMContentLoaded', () => {
+        initializeAnalytics();
+
         // Track page view on load
         const pageProperties = {
             path: window.location.pathname,
@@ -163,38 +164,7 @@
             properties: pageProperties,
         });
 
-        // Button click listener setup remains the same
-    })();
-})();
-
-    // Dynamic event handling for every page view
-    function handlePageEvents() {
-        // Track page view
-        const pageProperties = {
-            path: window.location.pathname,
-            title: document.title,
-            url: window.location.href
-        };
-
-        // Segment page track
-        if (window.analytics) {
-            window.analytics.page(pageProperties);
-        }
-
-        // PostHog page track
-        if (window.posthog) {
-            window.posthog.capture('$pageview', pageProperties);
-        }
-
-        // Call webhook for page track
-        callWebhook('https://eo9bnp5655lk84w.m.pipedream.net', {
-            action: 'page',
-            properties: pageProperties,
-        });
-    }
-
-    // Global button click listener for dynamic interaction tracking
-    function setupGlobalClickListener() {
+        // Button click listener
         document.body.addEventListener('click', async (event) => {
             const buttonEl = event.target.closest('button, input[type="submit"]');
             if (buttonEl) {
@@ -226,12 +196,5 @@
                 }
             }
         });
-    }
-
-    // Initialization and event handling setup
-    document.addEventListener('DOMContentLoaded', () => {
-        initializeAnalytics();
-        handlePageEvents();
-        setupGlobalClickListener();
-    });
+    })();
 })();
