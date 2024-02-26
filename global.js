@@ -1,30 +1,10 @@
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init('phc_hd8F0sixMUqzbgVkjn1oVYB0rk7VqvKZHpBkXQU1niC',{api_host:'https://app.posthog.com'});
+
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","screen","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware","register"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/"+key+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n)};analytics._writeKey="0t6JtdHEh6FDlVLPBVVqnYXfJXMA0A2O";analytics.load("0t6JtdHEh6FDlVLPBVVqnYXfJXMA0A2O");analytics.page();}}();
+
 (async function() {
-    // Assuming PostHog and Segment initialization keys
-    const posthogApiKey = 'phc_hd8F0sixMUqzbgVkjn1oVYB0rk7VqvKZHpBkXQU1niC';
-    const posthogApiHost = 'https://app.posthog.com';
-    const segmentWriteKey = '0t6JtdHEh6FDlVLPBVVqnYXfJXMA0A2O';
-
-    // Initialize analytics platforms
-    function initializeAnalytics() {
-        // Initialize PostHog
-        if (!window.posthog) {
-            !function(p,h,o,s,t){p['PostHogObject']=s;p[s]=p[s]||function(){
-                (p[s].q=p[s].q||[]).push(arguments)},p[s].l=1*new Date();t=h.createElement(o),
-                t.async=1;t.src='https://cdn.posthog.com/posthog.js';h.head.appendChild(t);
-                posthog.init(posthogApiKey, {api_host: posthogApiHost});
-            }(window,document,'script','posthog');
-        }
-
-        // Initialize Segment
-        if (!window.analytics) {
-            !function(e,a,t,n,g,c,o){e.AnalyticsObject=g;e[g]=e[g]||function(){
-                (e[g].q=e[g].q||[]).push(arguments)},e[g].l=1*new Date();c=a.createElement(t),
-                o=a.getElementsByTagName(t)[0];c.async=1;c.src="https://cdn.segment.com/analytics.js/v1/"
-                + segmentWriteKey + "/analytics.min.js";o.parentNode.insertBefore(c,o);
-            }(window,document,"script",0,"analytics");
-        }
-    }
-
     // Utility functions
     async function sha256(text) {
         const encoder = new TextEncoder();
@@ -139,32 +119,6 @@
 
     // Setup global button click listener with dynamic button text handling
     document.addEventListener('DOMContentLoaded', () => {
-        initializeAnalytics();
-
-        // Track page view on load
-        const pageProperties = {
-            path: window.location.pathname,
-            title: document.title,
-            url: window.location.href
-        };
-
-        // Segment page track
-        if (window.analytics) {
-            window.analytics.page(pageProperties);
-        }
-
-        // PostHog page track
-        if (window.posthog) {
-            window.posthog.capture('$pageview', pageProperties);
-        }
-
-        // Call webhook for page track
-        callWebhook('https://eo9bnp5655lk84w.m.pipedream.net', {
-            action: 'page',
-            properties: pageProperties,
-        });
-
-        // Button click listener
         document.body.addEventListener('click', async (event) => {
             const buttonEl = event.target.closest('button, input[type="submit"]');
             if (buttonEl) {
@@ -198,3 +152,4 @@
         });
     })();
 })();
+</script>
