@@ -1,5 +1,26 @@
 (async function() {
-    // Utility functions
+    // Assuming PostHog and Segment initialization keys
+    const posthogApiKey = 'phc_hd8F0sixMUqzbgVkjn1oVYB0rk7VqvKZHpBkXQU1niC';
+    const posthogApiHost = 'https://app.posthog.com'; // Adjust if you're using a self-hosted version
+    const segmentWriteKey = '0t6JtdHEh6FDlVLPBVVqnYXfJXMA0A2O';
+
+    // Initialize PostHog if it's not already initialized
+    if (!window.posthog) {
+        !function(p,h,o,s,t){p['PostHogObject']=s;p[s]=p[s]||function(){
+            (p[s].q=p[s].q||[]).push(arguments)},p[s].l=1*new Date();t=h.createElement(o),
+            t.async=1;t.src='https://cdn.posthog.com/posthog.js';h.head.appendChild(t)
+        }(window,document,'script','posthog');
+        posthog.init(posthogApiKey, {api_host: posthogApiHost});
+    }
+
+    // Initialize Segment if it's not already initialized
+    if (!window.analytics) {
+        !function(e,a,t,n,g,c,o){e.AnalyticsObject=g,e[g]=e[g]||function(){
+            (e[g].q=e[g].q||[]).push(arguments)},e[g].l=1*new Date,c=a.createElement(t),
+            o=a.getElementsByTagName(t)[0],c.async=1,c.src="https://cdn.segment.com/analytics.js/v1/"
+            + segmentWriteKey + "/analytics.min.js",o.parentNode.insertBefore(c,o)
+        }(window,document,"script",0,"analytics");
+    }
     async function sha256(text) {
         const encoder = new TextEncoder();
         const data = encoder.encode(text);
